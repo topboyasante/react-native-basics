@@ -2,6 +2,12 @@ import React from 'react'
 import { StyleSheet,SafeAreaView, View, Image, Text, FlatList } from 'react-native'
 import WalletCard from '../assets/components/cards/WalletCard';
 import { useFonts } from 'expo-font';
+import ActionButton from '../assets/components/buttons/ActionButton';
+
+
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import ExpenseCard from '../assets/components/cards/ExpenseCard';
 
 function HomeScreen() {
     const wallets = [
@@ -47,6 +53,8 @@ function HomeScreen() {
         }
       ];
   
+      const expenses = [  {    "id": 1,    "name": "Groceries",    "category": "Food",    "price": 50.00,    "tax": 3.50  },  {    "id": 2,    "name": "Gas",    "category": "Transportation",    "price": 35.00,    "tax": 2.45  },  {    "id": 3,    "name": "Movie Tickets",    "category": "Entertainment",    "price": 20.00,    "tax": 1.40  },  {    "id": 4,    "name": "Gym Membership",    "category": "Fitness",    "price": 80.00,    "tax": 5.60  }, ]
+
       const [loaded] = useFonts({
         'GeneralSans-Regular': require('../assets/fonts/GeneralSans-Regular.otf'),
         'GeneralSans-Semibold': require('../assets/fonts/GeneralSans-Semibold.otf'),
@@ -89,9 +97,28 @@ function HomeScreen() {
         />
      </View>
 
-    <View>
-
+    <View style={styles.buttonContainer}>
+          <ActionButton text={`Add Funds`} icon={<AntDesignIcon name="plus" size={20} color='#ffffff'/>}/>
+          <ActionButton text={`Withdraw`} icon={<FeatherIcon name="download" size={20} color='#ffffff'/>}/>
     </View>
+
+
+    <View style={styles.expenseContainer}>
+      <Text style={styles.normalText}>Recent Expenses:</Text>
+    {
+        expenses.map((item)=>{
+            return(
+                <ExpenseCard
+                name={item.name}
+                category={item.category}
+                price={item.price}
+                tax={item.tax}
+                />
+            )
+        })
+       }
+    </View>
+
     </SafeAreaView>
   )
 }
@@ -99,8 +126,7 @@ function HomeScreen() {
 const styles = StyleSheet.create({
     mainContainer:{
         backgroundColor:'#121212',
-        width:'100%',
-        height:'100%',
+        height:'100%'
     },
     userImage:{
         width:50,
@@ -125,8 +151,19 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         alignItems:'center'
     },
+    buttonContainer:{
+        padding:15,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center'
+    },
     cardContainer:{
         padding:10
+    },
+    expenseContainer:{
+      flexDirection:'column',
+      gap:20,
+      padding:20
     }
 })
 export default HomeScreen
