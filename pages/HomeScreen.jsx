@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet,SafeAreaView, View, Image, Text, FlatList } from 'react-native'
+import { StyleSheet,SafeAreaView, View, Image, Text, FlatList, ScrollView } from 'react-native'
 import WalletCard from '../assets/components/cards/WalletCard';
 import { useFonts } from 'expo-font';
 import ActionButton from '../assets/components/buttons/ActionButton';
@@ -53,7 +53,7 @@ function HomeScreen() {
         }
       ];
   
-      const expenses = [  {    "id": 1,    "name": "Groceries",    "category": "Food",    "price": 50.00,    "tax": 3.50  },  {    "id": 2,    "name": "Gas",    "category": "Transportation",    "price": 35.00,    "tax": 2.45  },  {    "id": 3,    "name": "Movie Tickets",    "category": "Entertainment",    "price": 20.00,    "tax": 1.40  },  {    "id": 4,    "name": "Gym Membership",    "category": "Fitness",    "price": 80.00,    "tax": 5.60  }, ]
+      const expenses = [  {    "id": 1,    "name": "Groceries",    "category": "Food",    "price": 50.00,    "tax": 3.50  },  {    "id": 2,    "name": "Gas",    "category": "Transportation",    "price": 35.00,    "tax": 2.45  },  {    "id": 3,    "name": "Movie tickets",    "category": "Entertainment",    "price": 20.00,    "tax": 1.40  },  {    "id": 4,    "name": "Gym membership",    "category": "Fitness",    "price": 80.00,    "tax": 5.60  },  {    "id": 5,    "name": "Dinner at a restaurant",    "category": "Food",    "price": 75.00,    "tax": 5.25  },  {    "id": 6,    "name": "Uber ride",    "category": "Transportation",    "price": 15.00,    "tax": 1.05  },  {    "id": 7,    "name": "Movie rental",    "category": "Entertainment",    "price": 5.00,    "tax": 0.35  },  {    "id": 8,    "name": "Personal training session",    "category": "Fitness",    "price": 100.00,    "tax": 7.00  },  {    "id": 9,    "name": "Groceries",    "category": "Food",    "price": 40.00,    "tax": 2.80  },  {    "id": 10,    "name": "Train ticket",    "category": "Transportation",    "price": 20.00,    "tax": 1.40  }]
 
       const [loaded] = useFonts({
         'GeneralSans-Regular': require('../assets/fonts/GeneralSans-Regular.otf'),
@@ -69,6 +69,7 @@ function HomeScreen() {
       
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <ScrollView>
       <View style={styles.container}>
         <View>
             <Text style={styles.headerText}>Hello, Nana Kwasi!</Text>
@@ -113,11 +114,13 @@ function HomeScreen() {
                 category={item.category}
                 price={item.price}
                 tax={item.tax}
+                key={item.id}
                 />
             )
         })
        }
     </View>
+      </ScrollView>
 
     </SafeAreaView>
   )
@@ -126,7 +129,7 @@ function HomeScreen() {
 const styles = StyleSheet.create({
     mainContainer:{
         backgroundColor:'#121212',
-        height:'100%'
+        flex:1
     },
     userImage:{
         width:50,
@@ -158,7 +161,8 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     cardContainer:{
-        padding:10
+        padding:10,
+        cardContainer:1
     },
     expenseContainer:{
       flexDirection:'column',
