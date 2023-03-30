@@ -1,23 +1,40 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CCInner from '../../images/cc-inner.png'
+import { useFonts } from 'expo-font';
 
 function WalletCard({index,name,cardNumber,cardType,expiryDate,balance}) {
+
     const colors = ['#E91E63', '#2196F3', '#4CAF50', '#df3512', '#3b556e'];
-    
+    const [loaded] = useFonts({
+      'GeneralSans-Regular': require('../../../assets/fonts/GeneralSans-Regular.otf'),
+      'GeneralSans-Semibold': require('../../../assets/fonts/GeneralSans-Semibold.otf'),
+      'ClashDisplay-Semibold': require('../../../assets/fonts/ClashDisplay-Semibold.otf'),
+      'ClashDisplay-Light': require('../../../assets/fonts/ClashDisplay-Light.otf'),
+    });
+  
+    if (!loaded) {
+      return null;
+    }
   return (
     <TouchableOpacity>
         <View style={[styles.container, { backgroundColor: colors[index % colors.length]  }]}>
+          
             <View style={styles.header}>
                 <Text style={styles.cardType}>{cardType.toUpperCase()}</Text>
                 <Text style={styles.expiryDate}>{expiryDate}</Text>
             </View>
-            <Image source={CCInner} style={{borderRadius:5, width:40, height:30}}/>
+
+           <View style={styles.body}>
+           <Image source={CCInner} style={{borderRadius:5, width:50, height:40}}/>
             <Text style={styles.cardNumber}>{cardNumber}</Text>
-            <View style={styles.body}>
+           </View>
+
+            <View style={styles.footer}>
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.balance}>Balance: ${balance}</Text>
             </View>
+
         </View>
     </TouchableOpacity>
   )
@@ -29,40 +46,47 @@ const styles = StyleSheet.create({
         padding: 16,
         width: 350,
         height: 220,
-        marginHorizontal: 8
+        marginHorizontal: 8,
+       
       },
       header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 25
       },
       body: {
         flex: 1,
-        justifyContent: 'flex-end'
+        marginVertical:45
+      },
+      footer:{
+
       },
       cardType: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#ffffff',
+        fontFamily:'ClashDisplay-Semibold'
       },
       cardNumber: {
         fontSize: 35,
-        color: '#ffffff'
+        color: '#ffffff',
+        fontFamily:'ClashDisplay-Semibold'
       },
       expiryDate: {
         fontSize: 16,
-        color: '#ffffff'
+        color: '#ffffff',
+        fontFamily:'ClashDisplay-Light'
       },
       name: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#ffffff',
-        marginBottom: 8
+        fontFamily:'ClashDisplay-Light'
       },
       balance: {
         fontSize: 16,
-        color: '#ffffff'
+        color: '#ffffff',
+        fontFamily:'ClashDisplay-Semibold'
       }
 })
 

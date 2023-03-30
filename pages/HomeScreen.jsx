@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet,SafeAreaView, View, Image, Text, FlatList } from 'react-native'
 import WalletCard from '../assets/components/cards/WalletCard';
+import { useFonts } from 'expo-font';
 
 function HomeScreen() {
     const wallets = [
@@ -45,8 +46,18 @@ function HomeScreen() {
           index: 4
         }
       ];
-      
-      
+  
+      const [loaded] = useFonts({
+        'GeneralSans-Regular': require('../assets/fonts/GeneralSans-Regular.otf'),
+        'GeneralSans-Semibold': require('../assets/fonts/GeneralSans-Semibold.otf'),
+        'ClashDisplay-Semibold': require('../assets/fonts/ClashDisplay-Semibold.otf'),
+        'ClashDisplay-Light': require('../assets/fonts/ClashDisplay-Light.otf'),
+      });
+    
+      if (!loaded) {
+        return null;
+      }
+
       
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -58,6 +69,7 @@ function HomeScreen() {
         <Image source={{uri:'https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1621&q=80'}}
         style={styles.userImage}/>
       </View>
+
      <View style={styles.cardContainer}>
         <FlatList data={wallets}
         renderItem={({item})=>(
@@ -76,6 +88,10 @@ function HomeScreen() {
         showsHorizontalScrollIndicator={false}
         />
      </View>
+
+    <View>
+
+    </View>
     </SafeAreaView>
   )
 }
@@ -87,18 +103,21 @@ const styles = StyleSheet.create({
         height:'100%',
     },
     userImage:{
-        width:35,
-        height:35,
+        width:50,
+        height:50,
         borderRadius:100,
         resizeMode:'cover'
     },
     normalText:{
         color:'#ffffff',
+        fontSize:20,
+        fontFamily:'ClashDisplay-Light'
     },
     headerText:{
         color:'#ffffff',
         fontWeight:'bold',
-        fontSize:30
+        fontSize:35,
+        fontFamily:'ClashDisplay-Semibold'
     },
     container:{
         padding:20,
