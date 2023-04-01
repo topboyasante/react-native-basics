@@ -1,7 +1,6 @@
 import React from 'react'
-import { StyleSheet,SafeAreaView, View, Image, Text, FlatList, ScrollView } from 'react-native'
+import { StyleSheet,SafeAreaView, View, Image, Text, FlatList, ScrollView, TouchableOpacity } from 'react-native'
 import WalletCard from '../assets/components/cards/WalletCard';
-import { useFonts } from 'expo-font';
 import ActionButton from '../assets/components/buttons/ActionButton';
 
 
@@ -9,7 +8,7 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import ExpenseCard from '../assets/components/cards/ExpenseCard';
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
     const wallets = [
         { 
           name: 'Nana Kwasi Asante',
@@ -54,18 +53,6 @@ function HomeScreen() {
       ];
   
       const expenses = [  {    "id": 1,    "name": "Groceries",    "category": "Food",    "price": 50.00,    "tax": 3.50  },  {    "id": 2,    "name": "Gas",    "category": "Transportation",    "price": 35.00,    "tax": 2.45  },  {    "id": 3,    "name": "Movie tickets",    "category": "Entertainment",    "price": 20.00,    "tax": 1.40  },  {    "id": 4,    "name": "Gym membership",    "category": "Fitness",    "price": 80.00,    "tax": 5.60  },  {    "id": 5,    "name": "Dinner at a restaurant",    "category": "Food",    "price": 75.00,    "tax": 5.25  },  {    "id": 6,    "name": "Uber ride",    "category": "Transportation",    "price": 15.00,    "tax": 1.05  },  {    "id": 7,    "name": "Movie rental",    "category": "Entertainment",    "price": 5.00,    "tax": 0.35  },  {    "id": 8,    "name": "Personal training session",    "category": "Fitness",    "price": 100.00,    "tax": 7.00  },  {    "id": 9,    "name": "Groceries",    "category": "Food",    "price": 40.00,    "tax": 2.80  },  {    "id": 10,    "name": "Train ticket",    "category": "Transportation",    "price": 20.00,    "tax": 1.40  }]
-
-      const [loaded] = useFonts({
-        'GeneralSans-Regular': require('../assets/fonts/GeneralSans-Regular.otf'),
-        'GeneralSans-Semibold': require('../assets/fonts/GeneralSans-Semibold.otf'),
-        'ClashDisplay-Semibold': require('../assets/fonts/ClashDisplay-Semibold.otf'),
-        'ClashDisplay-Light': require('../assets/fonts/ClashDisplay-Light.otf'),
-      });
-    
-      if (!loaded) {
-        return null;
-      }
-
       
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -99,14 +86,24 @@ function HomeScreen() {
      </View>
 
     <View style={styles.buttonContainer}>
-          <ActionButton text={`Add Funds`} icon={<AntDesignIcon name="plus" size={20} color='#ffffff'/>}/>
-          <ActionButton text={`Withdraw`} icon={<FeatherIcon name="download" size={20} color='#ffffff'/>}/>
+        <ActionButton text={`Add Funds`} icon={<AntDesignIcon name="plus" size={20} color='#ffffff'/>} OnPress={()=>navigation.navigate("AddFunds")}/>
+        <ActionButton text={`Withdraw`} icon={<FeatherIcon name="download" size={20} color='#ffffff'/>} OnPress={()=>navigation.navigate("WithdrawFunds")}/>
     </View>
 
 
     <View style={styles.expenseContainer}>
-      <Text style={styles.normalText}>Recent Expenses:</Text>
-    {
+
+      <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+        <Text style={styles.normalText}>Recent Expenses:</Text>
+
+        <TouchableOpacity onPress={()=>navigation.navigate("Expenses")}>
+          <View>
+            <Text style={styles.normalText}>{`See more ->`}</Text>
+          </View>
+        </TouchableOpacity>
+
+      </View>
+      {
         expenses.map((item)=>{
             return(
                 <ExpenseCard
@@ -145,7 +142,7 @@ const styles = StyleSheet.create({
     headerText:{
         color:'#ffffff',
         fontWeight:'bold',
-        fontSize:35,
+        fontSize:25,
         fontFamily:'ClashDisplay-Semibold'
     },
     container:{

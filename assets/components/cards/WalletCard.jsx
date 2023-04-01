@@ -1,21 +1,11 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CCInner from '../../images/cc-inner.png'
-import { useFonts } from 'expo-font';
 
 function WalletCard({index,name,cardNumber,cardType,expiryDate,balance}) {
 
     const colors = ['#E91E63', '#2196F3', '#4CAF50', '#df3512', '#3b556e'];
-    const [loaded] = useFonts({
-      'GeneralSans-Regular': require('../../../assets/fonts/GeneralSans-Regular.otf'),
-      'GeneralSans-Semibold': require('../../../assets/fonts/GeneralSans-Semibold.otf'),
-      'ClashDisplay-Semibold': require('../../../assets/fonts/ClashDisplay-Semibold.otf'),
-      'ClashDisplay-Light': require('../../../assets/fonts/ClashDisplay-Light.otf'),
-    });
-  
-    if (!loaded) {
-      return null;
-    }
+
   return (
     <TouchableOpacity>
         <View style={[styles.container, { backgroundColor: colors[index % colors.length]  }]}>
